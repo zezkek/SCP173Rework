@@ -40,5 +40,55 @@ namespace SCP173Rework
             else
                 ev.IsAllowed = false;
         }
+        public void OnActivatingScp914(ActivatingEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+
+        public void OnKnobChangingScp914(ChangingKnobSettingEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+
+        public void OnWarheadActivating(ActivatingWarheadPanelEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+
+        public void OnChangingWarheadStatus(ChangingLeverStatusEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+
+        public void OnClosingGenerator(ClosingGeneratorEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+
+        public void OnEjectingTabletGenerator(EjectingGeneratorTabletEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+        public void OnLockerInteract(InteractingLockerEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+        public void OnStartingWarhead(StartingEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
+        public void OnStoppingWarhead(StoppingEventArgs ev)
+        {
+            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
+                ev.IsAllowed = false;
+        }
     }
 }
