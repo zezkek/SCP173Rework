@@ -20,7 +20,7 @@ namespace SCP173Rework
     {
         public override string Name { get; } = "SCP173Rework";
         public override string Author { get; } = ".fkn_goose & Mydak";
-        public override Version Version => new Version(0, 0, 2);
+        public override Version Version => new Version(0, 1, 0);
         public static readonly Lazy<Plugin> LazyInstance = new Lazy<Plugin>(valueFactory: () => new Plugin());
         public static Plugin PluginItem => LazyInstance.Value;
         private Events events;
