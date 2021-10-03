@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//#define MoveStop
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using Exiled.API.Enums;
-using Exiled.API.Extensions;
-using MEC;
 
 namespace SCP173Rework
 {
@@ -18,6 +12,7 @@ namespace SCP173Rework
         {
             this.plugin = plugin;
         }
+#if MoveStop
         private IEnumerator<float> CantMove(Player ev)
         {
             Log.Info("173 cant move right now");
@@ -32,13 +27,14 @@ namespace SCP173Rework
                 {
                     CantMove(ev.Player);
                     //ev.Player.EnableEffect(EffectType.Ensnared, 2);
-                    //ev.Player.EnableEffect(EffectType.Asphyxiated, 2);
+                    ev.Player.EnableEffect(EffectType.Asphyxiated, 2);
                     //ev.Player.ShowHint("На вас смотрят <color=red>{int}</color> человек, вы не можете двигаться".Replace("{int}", ev.Targets.Count.ToString()), 5);
                 }
                 else
                     return;
                     //ev.Player.ShowHint("На вас смотрят <color=red>{int}</color> человек".Replace("{int}", ev.Targets.Count.ToString()), 5);
         }
+#endif
         public void OnDamage(HurtingEventArgs ev)
         {
             if (ev.Target.Role != RoleType.Scp173) return;
@@ -50,6 +46,7 @@ namespace SCP173Rework
             else
                 ev.IsAllowed = false;
         }
+
         public void OnActivatingScp914(ActivatingEventArgs ev)
         {
             if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)

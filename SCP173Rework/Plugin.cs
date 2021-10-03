@@ -1,18 +1,9 @@
-﻿using Exiled.API.Features;
-using Exiled.Events.EventArgs;
+﻿//#define MoveStop
+using Exiled.API.Features;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Events = Exiled.Events.EventArgs;
-using Scp173Events = Exiled.Events.Handlers.Scp173;
 using PlyEvents = Exiled.Events.Handlers.Player;
-using SvEvents = Exiled.Events.Handlers.Server;
-using ScpEvents = Exiled.Events.Handlers.Scp106;
-using MapEvents = Exiled.Events.Handlers.Map;
-using WarhEvents = Exiled.Events.Handlers.Warhead;
 using Scp914Events = Exiled.Events.Handlers.Scp914;
+using WarhEvents = Exiled.Events.Handlers.Warhead;
 
 namespace SCP173Rework
 {
@@ -28,7 +19,9 @@ namespace SCP173Rework
         public override void OnEnabled()
         {
             events = new Events(this);
+#if MoveStop
             Scp173Events.Blinking += events.OnBlinking;
+#endif
             PlyEvents.Hurting += events.OnDamage;
             Scp914Events.Activating += events.OnActivatingScp914;
             Scp914Events.ChangingKnobSetting += events.OnKnobChangingScp914;
@@ -42,7 +35,9 @@ namespace SCP173Rework
         }
         public override void OnDisabled()
         {
+#if MoveStop
             Scp173Events.Blinking -= events.OnBlinking;
+#endif
             PlyEvents.Hurting -= events.OnDamage;
             Scp914Events.Activating -= events.OnActivatingScp914;
             Scp914Events.ChangingKnobSetting -= events.OnKnobChangingScp914;
