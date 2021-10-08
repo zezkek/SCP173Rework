@@ -12,7 +12,7 @@ namespace SCP173Rework
         public override string Name { get; } = "SCP173Rework";
         public override string Author { get; } = ".fkn_goose & Mydak";
         public override string Prefix => "SCP173Rework";
-        public override Version Version => new Version(0, 0, 3);
+        public override Version Version => new Version(0, 0, 4);
         public static readonly Lazy<Plugin> LazyInstance = new Lazy<Plugin>(valueFactory: () => new Plugin());
         public static Plugin PluginItem => LazyInstance.Value;
         private Events events;
@@ -27,7 +27,7 @@ namespace SCP173Rework
             Scp914Events.ChangingKnobSetting += events.OnKnobChangingScp914;
             WarhEvents.ChangingLeverStatus += events.OnChangingWarheadStatus;
             PlyEvents.ClosingGenerator += events.OnClosingGenerator;
-            PlyEvents.EjectingGeneratorTablet += events.OnEjectingTabletGenerator;
+            PlyEvents.StoppingGenerator += events.OnStoppingGenerator;
             PlyEvents.InteractingLocker += events.OnLockerInteract;
             WarhEvents.Starting += events.OnStartingWarhead;
             WarhEvents.Stopping += events.OnStoppingWarhead;
@@ -43,7 +43,7 @@ namespace SCP173Rework
             Scp914Events.ChangingKnobSetting -= events.OnKnobChangingScp914;
             WarhEvents.ChangingLeverStatus -= events.OnChangingWarheadStatus;
             PlyEvents.ClosingGenerator -= events.OnClosingGenerator;
-            PlyEvents.EjectingGeneratorTablet -= events.OnEjectingTabletGenerator;
+            PlyEvents.StoppingGenerator -= events.OnStoppingGenerator;
             PlyEvents.InteractingLocker -= events.OnLockerInteract;
             WarhEvents.Starting -= events.OnStartingWarhead;
             WarhEvents.Stopping -= events.OnStoppingWarhead;

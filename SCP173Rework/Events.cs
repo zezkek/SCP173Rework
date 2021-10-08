@@ -77,7 +77,7 @@ namespace SCP173Rework
                 ev.IsAllowed = false;
         }
 
-        public void OnEjectingTabletGenerator(EjectingGeneratorTabletEventArgs ev)
+        public void OnStoppingGenerator(StoppingGeneratorEventArgs ev)
         {
             if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
                 ev.IsAllowed = false;
