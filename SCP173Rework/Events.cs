@@ -1,17 +1,20 @@
-﻿//#define MoveStop
-using Exiled.API.Features;
-using Exiled.Events.EventArgs;
-using Exiled.API.Enums;
-
+﻿// #define MoveStop
+// #define Hurt
 namespace SCP173Rework
 {
+    using Exiled.API.Enums;
+    using Exiled.API.Features;
+    using Exiled.Events.EventArgs;
+
     public class Events
     {
         private readonly Plugin plugin;
+
         public Events(Plugin plugin)
         {
             this.plugin = plugin;
         }
+
 #if MoveStop
         private IEnumerator<float> CantMove(Player ev)
         {
@@ -35,67 +38,26 @@ namespace SCP173Rework
                     //ev.Player.ShowHint("На вас смотрят <color=red>{int}</color> человек".Replace("{int}", ev.Targets.Count.ToString()), 5);
         }
 #endif
+#if Hurt
         public void OnDamage(HurtingEventArgs ev)
         {
-            if (ev.Target.Role != RoleType.Scp173) return;
-            else if (ev.DamageType == DamageTypes.Nuke || ev.DamageType == DamageTypes.Wall || ev.DamageType == DamageTypes.Decont) return;
-            if (plugin.Config.Debug)
-                Log.Debug($"OnDamage event has been taken.\nTarget: {ev.Target.Nickname}\nRole: {ev.Target.Role}" +
-                    $"\nAmount of damage: {ev.Amount}\nDamageType: {ev.DamageType.name}");
-            if (ev.DamageType == DamageTypes.Grenade) ev.Amount *= 0.1f;
+            if (ev.Target.Role != RoleType.Scp173)
+            {
+                return;
+            }
+
+            Log.Debug(
+                $"OnDamage event has been taken.\nTarget: {ev.Target.Nickname}\nRole: {ev.Target.Role}" +
+                $"\nAmount of damage: {ev.Amount}\nDamageType: {ev.DamageType.Name}", this.plugin.Config.Debug);
+            if (ev.DamageType == DamageTypes.Nuke || ev.DamageType == DamageTypes.Wall || ev.DamageType == DamageTypes.Decont)
+            {
+                return;
+            }
             else
+            {
                 ev.IsAllowed = false;
+            }
         }
-
-        public void OnActivatingScp914(ActivatingEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-
-        public void OnKnobChangingScp914(ChangingKnobSettingEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-
-        public void OnWarheadActivating(ActivatingWarheadPanelEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-
-        public void OnChangingWarheadStatus(ChangingLeverStatusEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-
-        public void OnClosingGenerator(ClosingGeneratorEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-
-        public void OnStoppingGenerator(StoppingGeneratorEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-        public void OnLockerInteract(InteractingLockerEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-        public void OnStartingWarhead(StartingEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
-        public void OnStoppingWarhead(StoppingEventArgs ev)
-        {
-            if (!ev.IsAllowed || ev.Player.Role == RoleType.Scp173)
-                ev.IsAllowed = false;
-        }
+#endif
     }
 }
