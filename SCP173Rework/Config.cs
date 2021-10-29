@@ -44,5 +44,6 @@
         {
         };
 
+        public int Watchers { get; set; } = 1;
     }
 }

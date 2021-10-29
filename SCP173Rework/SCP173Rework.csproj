@@ -120,6 +120,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandMethods.cs" />
+    <Compile Include="Commands\Vent\Vent.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Events\Doors.cs" />

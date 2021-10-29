@@ -1,10 +1,11 @@
-﻿// #define MoveStop
+﻿#define MoveStop
+#define Hurt
 namespace SCP173Rework
 {
     using System;
     using Exiled.API.Features;
     using PlayerEvents = Exiled.Events.Handlers.Player;
-    using Scp049Events = Exiled.Events.Handlers.Scp049;
+    using Scp173Events = Exiled.Events.Handlers.Scp173;
     using Scp914Events = Exiled.Events.Handlers.Scp914;
     using ServerEvents = Exiled.Events.Handlers.Server;
     using WarheadEvents = Exiled.Events.Handlers.Warhead;
@@ -23,6 +24,8 @@ namespace SCP173Rework
 
         public override Version RequiredExiledVersion { get; } = new Version(3, 0, 4);
 
+        public Events Events;
+
         public Doors Doors;
 
         public Generators Generators;
@@ -32,6 +35,8 @@ namespace SCP173Rework
         public Warhead Warhead;
 
         public Workstation Workstation;
+
+        public CommandMethods CommandMethods;
 
         private Plugin()
         {
@@ -46,11 +51,13 @@ namespace SCP173Rework
             this.Scp914 = new SCP914(this);
             this.Warhead = new Warhead(this);
             this.Workstation = new Workstation(this);
+            this.Events = new Events(this);
+            this.CommandMethods = new CommandMethods(this);
 #if MoveStop
-            Scp173Events.Blinking += events.OnBlinking;
+            Scp173Events.Blinking += this.Events.OnBlinking;
 #endif
 #if Hurt
-            PlyEvents.Hurting += this.events.OnDamage;
+            PlayerEvents.Hurting += this.Events.OnDamage;
 #endif
 
             PlayerEvents.InteractingElevator += this.Doors.OnInteractingElevator;
@@ -78,10 +85,10 @@ namespace SCP173Rework
         public override void OnDisabled()
         {
 #if MoveStop
-            Scp173Events.Blinking -= events.OnBlinking;
+            Scp173Events.Blinking -= this.Events.OnBlinking;
 #endif
 #if Hurt
-            PlyEvents.Hurting -= this.events.OnDamage;
+            PlayerEvents.Hurting -= this.Events.OnDamage;
 #endif
             PlayerEvents.InteractingElevator -= this.Doors.OnInteractingElevator;
             PlayerEvents.InteractingLocker -= this.Doors.OnInteractingLocker;
@@ -107,6 +114,7 @@ namespace SCP173Rework
             this.Scp914 = null;
             this.Warhead = null;
             this.Workstation = null;
+            this.CommandMethods = null;
 
             base.OnDisabled();
         }
